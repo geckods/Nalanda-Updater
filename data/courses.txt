@@ -1,0 +1,62 @@
+--- !ruby/object:Course
+name: Logic In Computer Science
+code:
+- CS
+- F214
+page_id: '1522'
+announcement_ids:
+- '7377'
+--- !ruby/object:Course
+name: Object Oriented Programming
+code:
+- CS
+- F213
+page_id: '1544'
+announcement_ids:
+- '7420'
+- '7421'
+--- !ruby/object:Course
+name: Digital Design
+code:
+- CS
+- F215
+page_id: '1539'
+announcement_ids:
+- '7410'
+- '7411'
+--- !ruby/object:Course
+name: Discrete Structures For Computer Science
+code:
+- CS
+- F222
+page_id: '1536'
+announcement_ids:
+- '7404'
+- '7405'
+--- !ruby/object:Course
+name: Mathematics-III
+code:
+- MATH
+- F211
+page_id: '1655'
+announcement_ids:
+- '7642'
+- '7643'
+--- !ruby/object:Course
+name: Modern Political Concepts
+code:
+- GS
+- F211
+page_id: '1613'
+announcement_ids:
+- '7558'
+- '7559'
+--- !ruby/object:Course
+name: Applied Philosophy
+code:
+- GS
+- F312
+page_id: '1602'
+announcement_ids:
+- '7536'
+- '7537'

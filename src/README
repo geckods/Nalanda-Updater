@@ -1,0 +1,5 @@
+COMMANDS NECESSARY TO MAKE THIS WORK
+bash -l
+rvm use 2.5.1
+export PATH=$PATH:/home/pi/Downloads/bin/
+
