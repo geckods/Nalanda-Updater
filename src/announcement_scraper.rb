@@ -1,8 +1,12 @@
+onraspi = false
+
 require 'watir'
-#require 'webdrivers'
+require 'webdrivers' if not onraspi
 require 'yaml'
 #require 'gmail'
-require 'headless'
+if onraspi
+  require 'headless' 
+end
 
 class Course
   attr_accessor :name,:code,:page_id,:announcement_ids
@@ -18,17 +22,45 @@ def names(arr)
   return ret
 end
 
-headless = Headless.new
-headless.start
+def encode(string)
+  string_array = string.scan(/./)
+  chr_array = []
+  string_array.each do |letter|
+    chr_array.push letter.ord
+  end
+  new_string = ''
+  chr_array.each do |chrn|
+    if chrn.chr == ' '
+      new_string = new_string + '||||'
+    end
+    chrn = chrn - 32
+    chrn = 127 - chrn
+    chrn = chrn.chr
+    new_string = new_string + chrn
+  end
+  return new_string
+end
 
-browser = Watir::Browser.new :firefox
-=begin
+if onraspi
+  headless = Headless.new
+  headless.start
+end
+
+password = encode(File.read("../data/password.txt"))
+
+if onraspi
+  browser = Watir::Browser.new :firefox
+else
+  browser = Watir::Browser.new :chrome
+end
+
+#=begin
 browser.goto("http://nalanda.bits-pilani.ac.in/login/index.php")
-browser.link(:class, "btn").click
-browser.text_field(:type, "email").set("f20171176@pilani.bits-pilani.ac.in\n")
-browser.text_field(:type, "password").set(".........\n")
+browser.link(class: "btn").click
+browser.text_field(type: "email").set("f20171176@pilani.bits-pilani.ac.in\n")
+browser.text_field(type: "password").set("#{password}\n")
 sleep 10
-=end
+#s=end
 sleep 5
 
 courses = YAML.load_stream(File.open("../data/courses.txt"))
@@ -90,7 +122,7 @@ courses.each do |c|
          end
 
 =begin
-         gmail = Gmail.connect!("f20171176@pilani.bits-pilani.ac.in","..........")
+         gmail = Gmail.connect!("f20171176@pilani.bits-pilani.ac.in","#{password}")
          gmail.deliver do
            to "f20171176@pilani.bits-pilani.ac.in"
            subject "Nalanda update:#{new_announcement.name}"
@@ -107,4 +139,4 @@ courses.each do |c|
 end
 
 browser.close()
-headless.destroy
+headless.destroy if onraspi
